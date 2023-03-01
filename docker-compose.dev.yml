@@ -8,8 +8,11 @@ services:
 
   nimble-client:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ../Nimble-client
+    volumes:
+      - /app/node_modules
+      - ../Nimble-client:/usr/src/app
     ports:
       - "3000:3000"
     stdin_open: true
@@ -24,7 +27,10 @@ services:
 
   nimble-server:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ../Nimble-server
+    volumes:
+      - /app/node_modules
+      - ../Nimble-server:/usr/src/app
     ports:
       - "3001:3001"
