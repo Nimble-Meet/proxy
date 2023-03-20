@@ -1,3 +1,5 @@
+# for development
+
 version: "3"
 services:
   nimble-redis:
@@ -8,23 +10,21 @@ services:
 
   nimble-client:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ../client
+    volumes:
+      - /usr/src/app/node_modules
+      - ../client:/usr/src/app
     ports:
       - "3000:3000"
     stdin_open: true
 
-  nimble-nginx:
-    restart: always
-    build:
-      dockerfile: Dockerfile
-      context: ./nginx
-    ports:
-      - "80:80"
-
   nimble-server:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ../server
+    volumes:
+      - /usr/src/app/node_modules
+      - ../server:/usr/src/app
     ports:
       - "3001:3001"
